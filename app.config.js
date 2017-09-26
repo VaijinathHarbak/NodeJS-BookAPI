@@ -1,4 +1,5 @@
 module.exports = {
+    ////Your Database configuration
     DB : {
         SqlDb : {
             user: 'sa',

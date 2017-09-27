@@ -42,7 +42,7 @@ var bookRepository = {
                 else
                 {
                     request = new sql.Request();
-                    var q = "insert into Book (Title, Author, Genre) values ('"+ newBook.Title +"','"+ newBook.Author +"','"+ newBook.Genre +"')";
+                    var q = "insert into Book (Title, Author, Genre) values ('"+ newBook.Title.trim() +"','"+ newBook.Author.trim() +"','"+ newBook.Genre.trim() +"')";
                     request.query(q, function (err, books) {
                             if (err){  
                                 sql.close()

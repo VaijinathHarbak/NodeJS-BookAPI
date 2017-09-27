@@ -1,31 +1,19 @@
 var express = require('express');
-var mongoose = require('mongoose');
-var sql = require('mssql')
-var config = require('./app.config.js');
-//var Book = require('./models/bookModel');
-var bookManager = require('./dataManager/bookManager.js');
+var bodyParser = require('body-parser');
 
-//var db = mongoose.Connection('mongodb://localhost/BookAPI');
 var app = express();
+app.use(bodyParser.json()); //Body-Parser should be before express.router
 var port = process.env.PORT || 8000;
-
-//API to get all books or a single book
-//Parameter id is optional  
-//URL: http://localhost:8000/api/books
-var bookRouter = express.Router();
-bookRouter.route('/books/:id?')
-	.get(function(req, res){
-		bookManager.getBooks(req.params.id)
-			.then(data=> {res.json(data);})
-			.catch(err=> {res.json({ERROR:''+ err});});
-	});
-app.use('/api', bookRouter);
 
 //Default Route : if someone hit the base url then it should respond.
 app.get('/',function(req,res){
 	res.send('Welcome to my node API');
 });
 
+var bookRouter = require('./routes/bookRouter.js')();
+app.use('/api/books', bookRouter);
+
+//app.use(express.bodyParser());
 app.listen(port, function(){
 	console.log('Running on port: ' + port);
 });

@@ -13,7 +13,7 @@ var routes = function(){
                 .then(data=> {res.json(data);})
                 .catch(err=> {res.json({ERROR:''+ err});});
         })
-    //API to get all books or a single book
+    //API to add a book 
     //URL: http://localhost:8000/api/books/addbook
     bookRouter.route('/addbook')
         .post(function(req, res){

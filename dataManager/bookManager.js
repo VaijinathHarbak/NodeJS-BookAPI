@@ -10,8 +10,25 @@ var bookManager = {
                 .catch(err => {return reject(err);}); // Reject the Promise with an error
         });
     },
-    addBook: function(){
+    addBook: function(newBook){
+        return new Promise((resolve, reject) => {
+           debugger;
+            if(typeof(newBook) == "undefined" || typeof(newBook.Title) == "undefined" || newBook.Title == ""
+                || typeof(newBook.Author) == "undefined" || newBook.Author == ""|| typeof(newBook.Genre) == "undefined" || newBook.Genre == ""){
+                    console.log("Book not defined properly");
+                    return reject("Book not defined properly");
 
+            }
+            else{
+                console.log("Book defined properly");
+                console.log(typeof(newBook.Title) == "undefined");
+                bookRepository.addBook(newBook)
+                .then(data => {
+                    return resolve(data);
+                })// Resolve (or fulfill) the promise with data
+                .catch(err => {return reject(err);}); // Reject the Promise with an error
+            }
+        });
     },
     editBook: function(id){
         

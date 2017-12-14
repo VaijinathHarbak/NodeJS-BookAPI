@@ -7,5 +7,6 @@ module.exports = {
             server:'',
             database: ''
         },
-    }
+    },
+    secret: 'ilovescotchyscotch'
 };

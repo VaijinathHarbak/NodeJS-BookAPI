@@ -1,5 +1,7 @@
 var express = require('express');
 var bookManager = require('../dataManager/bookManager.js');
+var userController = require('../controllers/userController.js');
+var bookController = require('../controllers/bookController.js');
 
 var routes = function(){
     
@@ -8,20 +10,12 @@ var routes = function(){
     //Parameter id is optional  
     //URL: http://localhost:8000/api/books
     bookRouter.route('/:id?')
-        .get(function(req, res){
-            bookManager.getBooks(req.params.id)
-                .then(data=> {res.json(data);})
-                .catch(err=> {res.json({ERROR:''+ err});});
-        })
+    .get(userController.loginRequired,bookController.getBooks)
+
     //API to add a book 
     //URL: http://localhost:8000/api/books/addbook
     bookRouter.route('/addbook')
-        .post(function(req, res){
-            var newBook = req.body
-            bookManager.addBook(newBook)
-                .then(data=> {res.json(data);})
-                .catch(err=> {res.json({ERROR:''+ err});});
-        });	
+        .post(userController.loginRequired,bookController.addBook);	
     return bookRouter;
 };
 
